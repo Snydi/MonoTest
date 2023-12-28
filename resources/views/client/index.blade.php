@@ -1,7 +1,8 @@
 <x-layout>
                                         <x-slot:title>Клиенты</x-slot:title>
-
+    <a href="/cars"> <button type="button" class="btn btn-success">На парковку</button> </a>
     <a href="/clients/create/"> <button type="button" class="btn btn-success">Добавить</button> </a>
+
 <table class="table">
 
     <thead>

@@ -21,7 +21,7 @@ class CarFactory extends Factory
             'brand' => fake()->word(),
             'model' => fake()->word(),
             'color' => fake()->word(),
-            'plate' => fake()->randomNumber(),
+            'plate' => fake()->unique()->randomNumber(),
             'in_parking' => fake()->boolean(),
             'client_id' => Client::pluck('id')->random(),
         ];

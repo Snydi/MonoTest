@@ -43,7 +43,9 @@
          <button type="submit" class="btn btn-primary">Редактировать</button>
 
     </form>
+
         <h1>Машины</h1>
+
     @foreach($cars as $car)
         <form action="{{url('/cars/update', ['id' => $car->id])}}" method="POST">
             @csrf
@@ -71,10 +73,17 @@
                 <input name="plate" type="text" class="form-control" id="plate" placeholder="Гос номер РФ::" value="{{$car->plate}}"
                        required>
             </div>
+
             <div class="form-group">
-                <label for="in_parking">На парковке</label>
-                <input name="in_parking" type="checkbox" class="form-check" id="in_parking"
-                       value="{{$car->in_parking}}">
+
+                <label for="park-yes">На парковке</label>
+                <input type="radio" id="park-yes" name="in_parking" value="1" required
+                    {{ $car->in_parking == 1 ? 'checked' : '' }}>
+
+                <label for="park-no">Отсутствует </label>
+                <input type="radio" id="park-no" name="in_parking" value="0" required
+                    {{ $car->in_parking == 0 ? 'checked' : '' }}>
+
             </div>
 
             <button type="submit" class="btn btn-primary">Редактировать</button>
@@ -115,8 +124,13 @@
                    required>
         </div>
         <div class="form-group">
-            <label for="in_parking">На парковке</label>
-            <input name="in_parking" type="checkbox" class="form-check" id="in_parking" value="1">
+            <label for="park-yes">На парковке</label>
+            <input type="radio" id="park-yes" name="in_parking" value="1" required
+                {{ $car->in_parking == 1 ? 'checked' : '' }}>
+
+            <label for="park-no">Отсутствует </label>
+            <input type="radio" id="park-no" name="in_parking" value="0" required
+                {{ $car->in_parking == 0 ? 'checked' : '' }}>
         </div>
 
         <button type="submit" class="btn btn-success">Добавить</button>

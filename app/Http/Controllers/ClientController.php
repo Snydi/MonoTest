@@ -22,9 +22,9 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'alpha|min:3',
+            'name' => 'min:3',
             'sex' => 'required',
-            'phone' => 'required|phone', //использовал библиотеку
+            'phone' => 'required|phone|unique:clients', //использовал библиотеку
             'address' => '',
         ]);
         DB::table('clients')->insert([
@@ -50,9 +50,9 @@ class ClientController extends Controller
     public function update(Request $request, $id) //непосредственно вносит изменения в базу
     {
         $request->validate([
-            'name' => 'alpha|min:3',
+            'name' => 'min:3',
             'sex' => 'required',
-            'phone' => 'required|phone', //использовал библиотеку
+            'phone' => 'required|phone|unique:clients,phone,'.$id, //использовал библиотеку
             'address' => '',
         ]);
         DB::table('clients')

@@ -20,7 +20,7 @@ class ClientFactory extends Factory
             'name' => fake()->name(),
             'sex' => fake()->numberBetween(0, 2), //стандарт ISO/IEC 5218
             'phone' => fake()->unique()->phoneNumber(),
-            'address' => fake()->streetName(), //TODO this too
+            'address' => fake()->streetName(),
         ];
     }
 }

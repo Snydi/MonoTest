@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('brand');
             $table->string('model');
             $table->string('color');
-            $table->string('plate');
-            $table->boolean('in_parking');
+            $table->string('plate')->unique();
+            $table->boolean('in_parking')->default(0);
             $table->foreignId('client_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
         });
     }
