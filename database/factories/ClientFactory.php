@@ -18,7 +18,7 @@ class ClientFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'sex' => fake()->boolean(), //TODO change to better logic
+            'sex' => fake()->numberBetween(0, 2), //стандарт ISO/IEC 5218
             'phone' => fake()->unique()->phoneNumber(),
             'address' => fake()->streetName(), //TODO this too
         ];
