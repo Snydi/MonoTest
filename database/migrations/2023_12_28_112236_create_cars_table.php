@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('plate');
             $table->boolean('in_parking');
             $table->foreignId('client_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

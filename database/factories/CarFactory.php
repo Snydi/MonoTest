@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Client;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,12 @@ class CarFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'brand' => fake()->word(),
+            'model' => fake()->word(),
+            'color' => fake()->word(),
+            'plate' => fake()->randomNumber(),
+            'in_parking' => fake()->boolean(),
+            'client_id' => Client::pluck('id')->random(),
         ];
     }
 }
