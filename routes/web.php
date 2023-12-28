@@ -32,7 +32,10 @@ Route::delete('/clients/delete/{id}', [ClientController::class, 'destroy']);
 Route::get('/cars', function () {
     return view('car.index');
 });
-Route::get('/cars/update', [CarController::class, 'update']);
+Route::post('/cars/store/{client_id}', [CarController::class, 'store']);
+Route::post('/cars/update/{id}', [CarController::class, 'update']);
+Route::delete('/cars/delete/{id}', [CarController::class, 'destroy']);
+
 
 
 

@@ -45,41 +45,80 @@
     </form>
         <h1>Машины</h1>
     @foreach($cars as $car)
-        <form action="{{url('/cars/update', ['id' => $client[0]->id])}}" method="POST">
+        <form action="{{url('/cars/update', ['id' => $car->id])}}" method="POST">
             @csrf
 
             <div class="form-group">
                 <label for="brand">Марка</label>
-                <input name="brand" type="text" class="form-control" id="brand" placeholder="Марка:" value="{{$cars[0]->brand}}"
+                <input name="brand" type="text" class="form-control" id="brand" placeholder="Марка:" value="{{$car->brand}}"
                        required>
             </div>
 
             <div class="form-group">
                 <label for="model">Модель</label>
-                <input name="model" type="text" class="form-control" id="model" placeholder="Марка:" value="{{$cars[0]->model}}"
+                <input name="model" type="text" class="form-control" id="model" placeholder="Марка:" value="{{$car->model}}"
                        required>
             </div>
 
             <div class="form-group">
                 <label for="color">Цвет</label>
-                <input name="color" type="text" class="form-control" id="color" placeholder="Цвет:" value="{{$cars[0]->color}}"
+                <input name="color" type="text" class="form-control" id="color" placeholder="Цвет:" value="{{$car->color}}"
                        required>
             </div>
 
             <div class="form-group">
                 <label for="plate">Гос номер РФ</label>
-                <input name="plate" type="text" class="form-control" id="plate" placeholder="Гос номер РФ::" value="{{$cars[0]->plate}}"
+                <input name="plate" type="text" class="form-control" id="plate" placeholder="Гос номер РФ::" value="{{$car->plate}}"
                        required>
             </div>
             <div class="form-group">
                 <label for="in_parking">На парковке</label>
                 <input name="in_parking" type="checkbox" class="form-check" id="in_parking"
-                       value="{{$cars[0]->in_parking}}" required>
+                       value="{{$car->in_parking}}">
             </div>
 
             <button type="submit" class="btn btn-primary">Редактировать</button>
         </form>
+
+        <form action="{{ url('cars/delete', ['id' => $car->id]) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-danger" type="submit">Удалить</button>
+        </form>
+
     @endforeach
+    <h1>Добавить машину</h1>
+    <form action="{{url('/cars/store',  ['client_id' => $client[0]->id]) }}" method="POST">
+        @csrf
 
+        <div class="form-group">
+            <label for="brand">Марка</label>
+            <input name="brand" type="text" class="form-control" id="brand" placeholder="Марка:"
+                   required>
+        </div>
 
+        <div class="form-group">
+            <label for="model">Модель</label>
+            <input name="model" type="text" class="form-control" id="model" placeholder="Марка:"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label for="color">Цвет</label>
+            <input name="color" type="text" class="form-control" id="color" placeholder="Цвет:"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label for="plate">Гос номер РФ</label>
+            <input name="plate" type="text" class="form-control" id="plate" placeholder="Гос номер РФ::"
+                   required>
+        </div>
+        <div class="form-group">
+            <label for="in_parking">На парковке</label>
+            <input name="in_parking" type="checkbox" class="form-check" id="in_parking" value="1">
+        </div>
+
+        <button type="submit" class="btn btn-success">Добавить</button>
+    </form>
 </x-layout>

@@ -4,7 +4,7 @@
 
     <a href="/clients/"> <button type="button" class="btn btn-success">Назад</button> </a>
 
-    <form action="/clients/store" method="POST">
+    <form action="{{url('/clients/store')}}" method="POST">
         @csrf
         <div class="form-group">
             <label for="name">ФИО</label>
