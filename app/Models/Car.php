@@ -11,11 +11,17 @@ class Car extends Model
     use HasFactory;
     public $timestamps = false;
 
-
     public static function getCarsInParking()
     {
         return DB::table('cars')
             ->where('in_parking', '=', '1')
+            ->select('*')
+            ->get();
+    }
+    public static function getCarsByClientId($id)
+    {
+        return DB::table('cars')
+            ->where('client_id', $id)
             ->select('*')
             ->get();
     }
