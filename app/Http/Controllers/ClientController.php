@@ -2,9 +2,10 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CarUpdateRequest;
-use App\Models\Car;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Car;
 use App\Models\Client;
 use App\Http\Requests\ClientStoreRequest;
 use App\Http\Requests\ClientUpdateRequest;

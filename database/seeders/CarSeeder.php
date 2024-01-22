@@ -11,6 +11,7 @@ class CarSeeder extends Seeder
     /**
      * Run the database seeds.
      */
+
     public function run(): void
     {
         Car::factory()->count(100)->create();

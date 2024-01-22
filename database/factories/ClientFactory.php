@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Factories;
-
+use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,9 +16,10 @@ class ClientFactory extends Factory
      */
     public function definition(): array
     {
+        $sexValues = ['male', 'female', 'N/A'];
         return [
             'name' => fake()->name(),
-            'sex' => fake()->numberBetween(0, 2), //стандарт ISO/IEC 5218
+            'sex' => Arr::random($sexValues),
             'phone' => fake()->unique()->phoneNumber(),
             'address' => fake()->streetName(),
         ];

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('sex');
+            $table->enum('sex', ['male', 'female', 'N/A']);
             $table->string('phone')->unique();
             $table->string('address');
         });

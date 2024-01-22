@@ -32,7 +32,8 @@ class CarUpdateRequest extends FormRequest
             'brand' => 'alpha|required',
             'model' => 'required',
             'color' => 'required',
-            'plate' => 'required|unique:cars,plate,'.$this->id,
+            'plate' => ['required', 'unique:cars,plate,'.$this->id ,
+                'regex:/^[АВЕКМНОРСТУХ]\d{3}(?<!000)[АВЕКМНОРСТУХ]{2}\d{2,3}$/ui'],
             'in_parking' => '',
         ];
     }

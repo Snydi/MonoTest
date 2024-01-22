@@ -2,6 +2,7 @@
     <x-slot:title>Добавление клиента</x-slot:title>
     <h1>Клиент</h1>
 
+
     <a href="/clients/"> <button type="button" class="btn btn-success">Назад</button> </a>
 
     <form action="{{url('/clients/store')}}" method="POST">
@@ -12,10 +13,10 @@
         </div>
 
         <select name="sex" class="custom-select" required>
-            <option selected>Укажите ваш пол:</option>
-            <option value="1" >Мужчина</option>
-            <option value="2" >Женщина</option>
-            <option value="0">Предпочитаю не указывать</option>
+            <option selected>Укажите пол:</option>
+            <option value="male" >Мужчина</option>
+            <option value="female" >Женщина</option>
+            <option value="N/A">Предпочитаю не указывать</option>
         </select>
 
         <div class="form-group">

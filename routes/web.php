@@ -29,5 +29,5 @@ Route::post('/cars/update/{id}', [CarController::class, 'update']);
 Route::delete('/cars/delete/{id}', [CarController::class, 'destroy']);
 
 Route::get('/', function () {
-    return view('clients');
+    return view('client.index');
 });

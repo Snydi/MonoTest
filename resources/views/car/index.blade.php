@@ -7,14 +7,7 @@
            <option value="{{$client->id}}">{{$client->name}} </option>
         @endforeach
     </select>
-{{--        <button type="submit" class="btn btn-primary">Показать машины</button>--}}
     </form>
-
-{{--    <select name="car" class="custom-select" required>--}}
-{{--        @foreach($cars as $car)--}}
-{{--            <option>{{$car->model}} </option>--}}
-{{--        @endforeach--}}
-{{--    </select>--}}
 
     <table class="table">
         <thead>
