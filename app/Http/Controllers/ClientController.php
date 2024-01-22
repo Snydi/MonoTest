@@ -20,7 +20,7 @@ class ClientController extends Controller
     {
         return view('client.create');
     }
-    public function store(Request $request)
+    public function store(ClientStoreRequest $request)
     {
         Client::createClient($request);
         return redirect('/clients');
@@ -31,10 +31,8 @@ class ClientController extends Controller
         $cars = Car::getCarsByClientId($id);
         return view('client.edit', ['client' => $client, 'cars' => $cars]);
     }
-    public function update(CarUpdateRequest $request, $id)
+    public function update(ClientUpdateRequest $request, $id)
     {
-        $clientUpdateRequest = new ClientUpdateRequest($id);
-        $request->validate($clientUpdateRequest->rules());
         Client::updateClient($request, $id);
         return redirect('/clients');
     }

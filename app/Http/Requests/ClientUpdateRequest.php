@@ -19,18 +19,14 @@ class ClientUpdateRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    private $id;
 
-    public function __construct($id)
-    {
-        $this->id = $id;
-    }
     public function rules(): array
     {
+        $id = $this->route('id');
         return [
             'name' => 'min:3',
             'sex' => 'required',
-            'phone' => 'required|phone|unique:clients,phone,'.$this->id, //использовал библиотеку
+            'phone' => 'required|phone|unique:clients,phone,'.$id, //использовал библиотеку
             'address' => '',
         ];
     }

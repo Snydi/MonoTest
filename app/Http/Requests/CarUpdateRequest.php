@@ -11,7 +11,7 @@ class CarUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -20,19 +20,15 @@ class CarUpdateRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
 
-    private $id;
 
-    public function __construct($id)
-    {
-        $this->id = $id;
-    }
     public function rules(): array
     {
+        $id = $this->route('id');
         return [
             'brand' => 'alpha|required',
             'model' => 'required',
             'color' => 'required',
-            'plate' => ['required', 'unique:cars,plate,'.$this->id ,
+            'plate' => ['required', 'unique:cars,plate,'.$id ,
                 'regex:/^[АВЕКМНОРСТУХ]\d{3}(?<!000)[АВЕКМНОРСТУХ]{2}\d{2,3}$/ui'],
             'in_parking' => '',
         ];

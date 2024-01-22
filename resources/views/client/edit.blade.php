@@ -22,10 +22,10 @@
         </div>
 
         <select name="sex" class="custom-select" required>
-            <option>Укажите ваш пол:</option>
-            <option value="1" {{$client[0]->sex === 1 ? 'selected' : ''}}>Мужчина</option>
-            <option value="2" {{$client[0]->sex === 2 ? 'selected' : ''}}>Женщина</option>
-            <option value="0" {{$client[0]->sex === 0 ? 'selected' : ''}}>Предпочитаю не указывать</option>
+            <option value="N/A" disabled>Укажите пол:</option>
+            <option value="male" {{$client[0]->sex === "male" ? 'selected' : ''}}>Мужчина</option>
+            <option value="female" {{$client[0]->sex ===  "female" ?'selected' : ''}}>Женщина</option>
+            <option value="N/A" {{$client[0]->sex === "N/A" ? 'selected' : ''}}>Предпочитаю не указывать</option>
         </select>
 
         <div class="form-group">
@@ -45,7 +45,6 @@
     </form>
 
         <h1>Машины</h1>
-
     @foreach($cars as $car)
         <form action="{{url('/cars/update', ['id' => $car->id])}}" method="POST">
             @csrf
@@ -95,7 +94,9 @@
             <button class="btn btn-danger" type="submit">Удалить</button>
         </form>
 
+
     @endforeach
+
     <h1>Добавить машину</h1>
     <form action="{{url('/cars/store',  ['client_id' => $client[0]->id]) }}" method="POST">
         @csrf

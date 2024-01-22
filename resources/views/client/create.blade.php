@@ -13,7 +13,7 @@
         </div>
 
         <select name="sex" class="custom-select" required>
-            <option selected>Укажите пол:</option>
+            <option value="N/A" disabled selected>Укажите пол:</option>
             <option value="male" >Мужчина</option>
             <option value="female" >Женщина</option>
             <option value="N/A">Предпочитаю не указывать</option>

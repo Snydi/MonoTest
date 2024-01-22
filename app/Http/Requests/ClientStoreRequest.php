@@ -24,7 +24,7 @@ class ClientStoreRequest extends FormRequest
         return [
             'name' => 'min:3',
             'sex' => 'required',
-            'phone' => 'required|phone|unique:clients', //использовал библиотеку
+            'phone' => 'required|phone|unique:clients',
             'address' => '',
         ];
     }

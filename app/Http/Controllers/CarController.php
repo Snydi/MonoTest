@@ -22,10 +22,9 @@ class CarController extends Controller
        Car::createCar($request, $client_id);
        return redirect('/clients');
     }
-    public function update(Request $request, $id)
+    public function update(CarUpdateRequest $request, $id)
     {
-        $carUpdateRequest = new CarUpdateRequest($id);
-        $request->validate($carUpdateRequest->rules());
+
         Car::updateCar($request, $id);
         return redirect('/clients');
     }
