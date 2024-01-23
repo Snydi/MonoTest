@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <h1>Клиенты</h1>
     <router-link to="/cars">
       <button class="btn btn-success">На парковку</button>
@@ -19,27 +19,25 @@
       </tr>
       </thead>
 
-
-
-
       <tbody>
       <tr v-for="client in clients.data || []" :key="client.id">
-        <td>{{ client.id }}</td>
+
         <td>{{ client.name }}</td>
         <td>{{ client.brand }}</td>
         <td>{{ client.plate }}</td>
-      </tr>
 
+        <td>
+          <router-link :to="{ name: 'editClient', params: { id: client.id } }">
+            <button class="btn btn-primary">Редактировать</button>
+          </router-link>
+        </td>
+
+        <td>
+          <button @click="deleteClient(client.id)" class="btn btn-danger">Удалить</button>
+        </td>
+
+      </tr>
       </tbody>
-<!--      <td>-->
-<!--        <router-link :to="{ name: 'editClient', params: { id: client.id } }">-->
-<!--          <button class="btn btn-primary">Редактировать</button>-->
-<!--        </router-link>-->
-<!--      </td>-->
-<!--        <td>-->
-<!--          <button @click="deleteClient(client.id)" class="btn btn-danger">Удалить</button>-->
-<!--        </td>-->
-<!--      </tr>-->
     </table>
 
     <div class="d-flex">
@@ -79,9 +77,30 @@ export default {
         this.loading = false;
       }
     },
+
+  async deleteClient(clientId) {
+    if (confirm('Вы уверены, что хотите удалить клиента?')) {
+      try {
+        await axios.delete(`http://127.0.0.1:8000/api/clients/delete/${clientId}`);
+        this.clients.last_page = 9;
+        await this.loadClients(this.clients.current_page);
+      } catch (error) {
+        console.error('Error deleting client:', error);
+      }
+    }
+  },
   },
   mounted() {
     this.loadClients();
   },
 };
 </script>
+<style>
+.wrapper
+{
+  width: 600px;
+  height: 1080px;
+  margin: 0;
+
+}
+</style>

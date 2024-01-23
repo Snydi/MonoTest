@@ -11,6 +11,11 @@ const router = createRouter({
       component: Clients
     },
     {
+      path: '/clients',
+      name: 'clients',
+      component: Clients
+    },
+    {
       path: '/clients/edit/:id',
       name: 'editClient',
       component: EditClient

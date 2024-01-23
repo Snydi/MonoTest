@@ -16,30 +16,23 @@ class ClientController extends Controller
     {
         return Client::getClientsWithCars();
     }
-    public function create()
-    {
-        return view('client.create');
-    }
     public function store(ClientStoreRequest $request)
     {
         Client::createClient($request);
-        return redirect('/clients');
     }
     public function edit($id)
     {
-        $client = Client::getClientById($id);
-        $cars = Car::getCarsByClientId($id);
-        return view('client.edit', ['client' => $client, 'cars' => $cars]);
+        $data ["client"] = Client::getClientById($id);
+        $data ["cars"] = Car::getCarsByClientId($id);
+        return $data;
     }
     public function update(ClientUpdateRequest $request, $id)
     {
         Client::updateClient($request, $id);
-        return redirect('/clients');
     }
     public function destroy($id)
     {
        Client::deleteClient($id);
-       return redirect('/clients');
     }
 }
 
