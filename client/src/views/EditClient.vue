@@ -48,6 +48,7 @@
     </div>
 
     <h1>Добавить машину</h1>
+    <create-car-form :clientId="this.clientId"></create-car-form>
 
   </div>
 </template>
@@ -56,6 +57,7 @@
 import axios from "axios";
 
 import EditCarForm from '../components/EditCarForm.vue';
+import CreateCarForm from "../components/CreateCarForm.vue";
 export default {
   data() {
     return {
@@ -126,6 +128,7 @@ export default {
 
   },
   components: {
+    CreateCarForm,
     EditCarForm,
   },
   mounted() {

@@ -29,7 +29,7 @@
         <input v-model="client.address" type="text" class="form-control" id="address" placeholder="Адрес:" required>
       </div>
 
-      <button type="submit" class="btn btn-primary">Добавить</button>
+      <button type="submit" class="btn btn-success">Добавить</button>
     </form>
 
     <div v-if="errors.length > 0" class="alert alert-danger">
@@ -61,19 +61,16 @@ export default {
 
       try {
         const response = await axios.post('http://127.0.0.1:8000/api/clients/store', this.client);
-
         this.message = response.data.message;
         this.showMessage = true;
         setTimeout(() => {
           this.showMessage = false;
         }, 5000);
+        } catch (error) {
+        if (error.response && error.response.data && error.response.data.errors) {
 
-      } catch (error) {
-
-        if (error.response) {
           const fields = Object.keys(error.response.data.errors);
           this.errors = fields.map(key => error.response.data.errors[key]) || ["Серверная ошибка"];
-
         } else if (error.request) {
           this.errors = ["Нет ответа от сервера"];
         } else {

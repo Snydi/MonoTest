@@ -29,8 +29,15 @@
       <input type="radio" id="park-no" name="in_parking" value="0" v-model="car.in_parking" required />
     </div>
 
-    <button type="submit" class="btn btn-primary">{{ buttonText }}</button>
+    <button type="submit" class="btn btn-success">Добавить</button>
   </form>
+  <div v-if="errors.length > 0" class="alert alert-danger">
+    <ul>
+      <li v-for="error in errors">{{ error }}</li>
+    </ul>
+  </div>
+
+  <p :style="{ color: 'green', display: showMessage ? 'block' : 'none' }">{{ message }}</p>
 </template>
 
 <script>
@@ -38,17 +45,47 @@ import axios from 'axios';
 
 export default {
   props: {
-    car: Object,
-    buttonText: String,
+    clientId: {
+      type: Number, // Assuming clientId is a number, adjust the type accordingly
+      required: true,
+    },
   },
+ data(){
+   return{
+     car: {
+       brand: "",
+       plate: "",
+       model: "",
+       color: "",
+       in_parking: ""
+     },
+     message: '',
+     showMessage: false,
+     errors: []
+   };
+ },
+
+
   methods: {
     async createCar() {
       try {
-        const url =  `http://127.0.0.1:8000/api/cars/update/${this.car.id}`;
-        const response = await axios.post(url, this.car);
-        console.log(response.data);
+        const response = await axios.post(`http://127.0.0.1:8000/api/cars/store/${this.clientId}`, this.car);
+
+        this.message = response.data.message;
+        this.showMessage = true;
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 5000);
       } catch (error) {
-        console.error('Error submitting form:', error);
+        if (error.response && error.response.data && error.response.data.errors) {
+
+          const fields = Object.keys(error.response.data.errors);
+          this.errors = fields.map(key => error.response.data.errors[key]) || ["Серверная ошибка"];
+        } else if (error.request) {
+          this.errors = ["Нет ответа от сервера"];
+        } else {
+          this.errors = [error.message];
+        }
       }
     },
   },

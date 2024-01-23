@@ -1,7 +1,6 @@
 <template>
   <form @submit.prevent="updateCar">
 
-
     <div class="form-group">
       <label for="brand">Марка</label>
       <input v-model="car.brand" type="text" class="form-control" id="brand" placeholder="Марка:" required />
