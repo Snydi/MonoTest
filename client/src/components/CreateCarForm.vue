@@ -70,7 +70,7 @@ export default {
     async createCar() {
       try {
           const response = await axios.post(`http://127.0.0.1:8000/api/cars/store/${this.clientId}`, this.car);
-
+          this.$emit('carCreated');
           this.message = response.data.message;
           this.showMessage = true;
           setTimeout(() => {

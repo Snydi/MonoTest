@@ -44,11 +44,11 @@
     <h1>Машины</h1>
 
     <div v-for="car in cars" :key="car.id">
-      <edit-car-form :car="car" @carDeleted="removeDeletedCar"/>
+      <edit-car-form :car="car"   @carDeleted="removeDeletedCar"/>
     </div>
 
     <h1>Добавить машину</h1>
-    <create-car-form :clientId="this.clientId"></create-car-form>
+    <create-car-form :clientId="this.clientId" @carCreated="addNewCar" ></create-car-form>
 
   </div>
 </template>
@@ -72,11 +72,14 @@ export default {
       message: '',
       showMessage: false,
       errors: [],
-      loading: false,
     };
   },
 
   methods: {
+    addNewCar() {
+      console.log('test');
+      this.getClientAndCarsData();
+    },
     removeDeletedCar(deletedCarId) {
       const index = this.cars.findIndex(car => car.id === deletedCarId);
       if (index !== -1) {
@@ -109,16 +112,12 @@ export default {
     },
 
     async getClientAndCarsData() {
-      this.loading = true;
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/clients/edit/${this.clientId}`);
         this.client = response.data.client[0];
         this.cars = response.data.cars;
-        console.log(this.cars);
       } catch (error) {
         console.error('Error fetching clients with cars:', error);
-      } finally {
-        this.loading = false;
       }
     },
   },
