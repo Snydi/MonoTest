@@ -78,14 +78,11 @@ export default {
 
   methods: {
     removeDeletedCar(deletedCarId) {
-      // Find the index of the deleted car in the array
       const index = this.cars.findIndex(car => car.id === deletedCarId);
       if (index !== -1) {
-        // Remove the deleted car from the array
         this.cars.splice(index, 1);
       }
     },
-
     async updateClient()
     {
       try {
@@ -113,7 +110,6 @@ export default {
 
     async getClientAndCarsData() {
       this.loading = true;
-
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/clients/edit/${this.clientId}`);
         this.client = response.data.client[0];
@@ -125,7 +121,6 @@ export default {
         this.loading = false;
       }
     },
-
   },
   components: {
     CreateCarForm,
@@ -134,8 +129,6 @@ export default {
   mounted() {
     this.clientId = this.$route.params.id;
     this.getClientAndCarsData();
-
-
   },
 };
 </script>

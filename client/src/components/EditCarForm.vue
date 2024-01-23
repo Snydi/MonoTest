@@ -73,22 +73,29 @@ export default {
           this.showMessage = false;
         }, 5000);
 
-      } catch (error) {
-
-        if (error.response) {
+      }
+      catch (error)
+      {
+        if (error.response)
+        {
           const fields = Object.keys(error.response.data.errors);
           this.errors = fields.map(key => error.response.data.errors[key]) || ["Серверная ошибка"];
-
-        } else if (error.request) {
+        }
+        else if (error.request)
+        {
           this.errors = ["Нет ответа от сервера"];
-        } else {
+        } else
+        {
           this.errors = [error.message];
         }
       }
     },
-    async deleteCar() {
-      if (confirm('Вы уверены, что хотите удалить машину?')) {
-        try {
+    async deleteCar()
+    {
+      if (confirm('Вы уверены, что хотите удалить машину?'))
+      {
+        try
+        {
           await axios.delete(`http://127.0.0.1:8000/api/cars/delete/${this.carData.id}`);
           this.$emit('carDeleted', this.carData.id);
         } catch (error) {

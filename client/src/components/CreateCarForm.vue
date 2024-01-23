@@ -31,6 +31,7 @@
 
     <button type="submit" class="btn btn-success">Добавить</button>
   </form>
+
   <div v-if="errors.length > 0" class="alert alert-danger">
     <ul>
       <li v-for="error in errors">{{ error }}</li>
@@ -46,7 +47,7 @@ import axios from 'axios';
 export default {
   props: {
     clientId: {
-      type: Number, // Assuming clientId is a number, adjust the type accordingly
+      type: Number,
       required: true,
     },
   },
@@ -65,25 +66,28 @@ export default {
    };
  },
 
-
   methods: {
     async createCar() {
       try {
-        const response = await axios.post(`http://127.0.0.1:8000/api/cars/store/${this.clientId}`, this.car);
+          const response = await axios.post(`http://127.0.0.1:8000/api/cars/store/${this.clientId}`, this.car);
 
-        this.message = response.data.message;
-        this.showMessage = true;
-        setTimeout(() => {
+          this.message = response.data.message;
+          this.showMessage = true;
+          setTimeout(() => {
           this.showMessage = false;
-        }, 5000);
-      } catch (error) {
-        if (error.response && error.response.data && error.response.data.errors) {
-
+          }, 5000);
+         }
+      catch (error) {
+        if (error.response && error.response.data && error.response.data.errors)
+        {
           const fields = Object.keys(error.response.data.errors);
           this.errors = fields.map(key => error.response.data.errors[key]) || ["Серверная ошибка"];
-        } else if (error.request) {
+        }
+        else if (error.request)
+        {
           this.errors = ["Нет ответа от сервера"];
-        } else {
+        } else
+        {
           this.errors = [error.message];
         }
       }

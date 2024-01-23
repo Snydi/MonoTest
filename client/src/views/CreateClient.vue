@@ -68,7 +68,6 @@ export default {
         }, 5000);
         } catch (error) {
         if (error.response && error.response.data && error.response.data.errors) {
-
           const fields = Object.keys(error.response.data.errors);
           this.errors = fields.map(key => error.response.data.errors[key]) || ["Серверная ошибка"];
         } else if (error.request) {
