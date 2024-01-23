@@ -13,9 +13,9 @@ class CarController extends Controller
 {
     public function index()
     {
-        $cars = Car::getCarsInParking();
-        $clients = Client::getAllClients();
-        return view('car.index', ['cars'=>$cars], ['clients' => $clients]);
+        $data ["cars"] = Car::getCarsInParking();
+        $data ["clients"] = Client::getAllClients();
+        return $data;
     }
 
     public function store(CarStoreRequest $request, $client_id )

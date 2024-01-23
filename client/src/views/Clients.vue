@@ -58,7 +58,6 @@ export default {
         current_page: 1,
         last_page: 1,
       },
-      loading: false,
     };
   },
   components: {
@@ -66,15 +65,11 @@ export default {
   },
   methods: {
     async loadClients(page = 1) {
-      this.loading = true;
-
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/clients?page=${page}`);
         this.clients = response.data;
       } catch (error) {
         console.error('Error fetching clients:', error);
-      } finally {
-        this.loading = false;
       }
     },
 

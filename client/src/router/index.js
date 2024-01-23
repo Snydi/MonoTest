@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Clients from '../views/Clients.vue'
+import Cars from '../views/Cars.vue'
 import CreateClient from '../views/CreateClient.vue'
 import EditClient from '../views/EditClient.vue'
 
@@ -25,6 +26,11 @@ const router = createRouter({
       path: '/clients/edit/:id',
       name: 'editClient',
       component: EditClient
+    },
+    {
+      path: '/cars',
+      name: 'cars',
+      component: Cars
     },
   ]
 })
