@@ -28,6 +28,4 @@ Route::post('/cars/store/{client_id}', [CarController::class, 'store']);
 Route::post('/cars/update/{id}', [CarController::class, 'update']);
 Route::delete('/cars/delete/{id}', [CarController::class, 'destroy']);
 
-Route::get('/', function () {
-    return view('client.index');
-});
+

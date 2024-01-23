@@ -17,23 +17,23 @@
 
     <tbody>
     @foreach($clients as $client)
-    <tr>
-        <td> {{$client->name}}</td>
-        <td> {{$client->brand}}</td>
-        <td> {{$client->plate}}</td>
-        <td>
-            <a href="/clients/edit/{{$client->id}}">
-                <button type="button" class="btn btn-primary">Редактировать</button>
-            </a>
-        </td>
-        <td>
-            <form action="{{ url('clients/delete', ['id' => $client->id]) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button class="btn btn-danger" type="submit">Удалить</button>
-            </form>
-        </td>
-    </tr>
+        <tr>
+            <td> {{$client->name}}</td>
+            <td> {{$client->brand}}</td>
+            <td> {{$client->plate}}</td>
+            <td>
+                <a href="/clients/edit/{{$client->id}}">
+                    <button type="button" class="btn btn-primary">Редактировать</button>
+                </a>
+            </td>
+            <td>
+                <form action="{{ url('clients/delete', ['id' => $client->id]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger" type="submit">Удалить</button>
+                </form>
+            </td>
+        </tr>
     @endforeach
 
     </tbody>

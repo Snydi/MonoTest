@@ -15,8 +15,9 @@ use App\Http\Controllers\API\CarController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+
 Route::get('/clients', [ClientController::class, 'index']);
-Route::get('/clients/create', [ClientController::class, 'create']);
 Route::post('/clients/store', [ClientController::class, 'store']);
 Route::get('/clients/edit/{id}', [ClientController::class, 'edit']);
 Route::post('/clients/update/{id}', [ClientController::class, 'update']);
