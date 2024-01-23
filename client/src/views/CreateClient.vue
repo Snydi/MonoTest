@@ -6,7 +6,7 @@
       <button type="button" class="btn btn-success">Назад</button>
     </router-link>
 
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="createClient">
       <div class="form-group">
         <label for="name">ФИО</label>
         <input v-model="client.name" type="text" class="form-control" id="name" placeholder="ФИО:" required>
@@ -57,7 +57,7 @@ export default {
     };
   },
   methods: {
-    async submitForm() {
+    async createClient() {
 
       try {
         const response = await axios.post('http://127.0.0.1:8000/api/clients/store', this.client);

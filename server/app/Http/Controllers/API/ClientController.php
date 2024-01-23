@@ -30,6 +30,7 @@ class ClientController extends Controller
     public function update(ClientUpdateRequest $request, $id)
     {
         Client::updateClient($request, $id);
+        return response()->json(['message' => 'Клиент успешно отредактирован']);
     }
     public function destroy($id)
     {
