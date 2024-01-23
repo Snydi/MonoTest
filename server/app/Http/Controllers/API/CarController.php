@@ -21,17 +21,15 @@ class CarController extends Controller
     public function store(CarStoreRequest $request, $client_id )
     {
        Car::createCar($request, $client_id);
-       return redirect('/clients');
+        return response()->json(['message' => 'Машина успешно добавлена']);
     }
     public function update(CarUpdateRequest $request, $id)
     {
-
         Car::updateCar($request, $id);
-        return redirect('/clients');
+        return response()->json(['message' => 'Машина успешно отредактирована']);
     }
     public function destroy($id)
     {
         Car::deleteCar($id);
-        return back();
     }
 }

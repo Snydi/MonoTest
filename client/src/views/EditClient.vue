@@ -44,21 +44,18 @@
     <h1>Машины</h1>
 
     <div v-for="car in cars" :key="car.id">
-<!--      <CarUpdateForm :car="car" @submit="updateCar" />-->
-<!--      <CarDeleteForm :car="car" @submit="deleteCar" />-->
+      <edit-car-form :car="car" @carDeleted="removeDeletedCar"/>
     </div>
 
     <h1>Добавить машину</h1>
-<!--    <CarAddForm @submit="addCar" />-->
+
   </div>
 </template>
 
 <script>
 import axios from "axios";
-// import CarUpdateForm from "@/components/CarUpdateForm.vue";
-// import CarDeleteForm from "@/components/CarDeleteForm.vue";
-// import CarAddForm from "@/components/CarAddForm.vue";
 
+import EditCarForm from '../components/EditCarForm.vue';
 export default {
   data() {
     return {
@@ -76,7 +73,17 @@ export default {
       loading: false,
     };
   },
+
   methods: {
+    removeDeletedCar(deletedCarId) {
+      // Find the index of the deleted car in the array
+      const index = this.cars.findIndex(car => car.id === deletedCarId);
+      if (index !== -1) {
+        // Remove the deleted car from the array
+        this.cars.splice(index, 1);
+      }
+    },
+
     async updateClient()
     {
       try {
@@ -109,17 +116,17 @@ export default {
         const response = await axios.get(`http://127.0.0.1:8000/api/clients/edit/${this.clientId}`);
         this.client = response.data.client[0];
         this.cars = response.data.cars;
+        console.log(this.cars);
       } catch (error) {
         console.error('Error fetching clients with cars:', error);
       } finally {
         this.loading = false;
       }
     },
+
   },
   components: {
-    // CarUpdateForm,
-    // CarDeleteForm,
-    // CarAddForm,
+    EditCarForm,
   },
   mounted() {
     this.clientId = this.$route.params.id;
