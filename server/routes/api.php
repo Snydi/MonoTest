@@ -17,6 +17,10 @@ use App\Http\Controllers\API\CarController;
 */
 
 
+Route::post('/register', [ClientController::class, 'store']);
+Route::middleware(['auth:sanctum'])->group(function () {
+
+});
 Route::get('/clients', [ClientController::class, 'index']);
 Route::post('/clients/store', [ClientController::class, 'store']);
 Route::get('/clients/edit/{id}', [ClientController::class, 'edit']);
