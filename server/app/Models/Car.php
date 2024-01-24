@@ -17,6 +17,7 @@ class Car extends Model
             ->where('in_parking', '=', '1')
             ->select('*')
             ->get();
+
     }
     public static function getCarsByClientId($id)
     {
