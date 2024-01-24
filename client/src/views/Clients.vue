@@ -7,20 +7,23 @@
     <router-link to="/clients/create/">
       <button class="btn btn-success">Добавить</button>
     </router-link>
-
+    <div class="input-group input-group-sm mb-3">
+      <input type="text" v-model="search" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+    </div>
     <table class="table">
       <thead>
       <tr>
-        <th scope="col">Клиент</th>
-        <th scope="col">Авто</th>
-        <th scope="col">Номер</th>
+        <th scope="col"><div @click="sortFields('name')">Клиент <i class="bi-sort-alpha-up"></i></div></th>
+        <th scope="col"><div @click="sortFields('brand')">Марка машины <i class="bi-sort-alpha-up"></i></div></th>
+        <th scope="col"><div @click="sortFields('plate')">Номер машины <i class="bi-sort-alpha-up"></i></div></th>
         <th><button class="btn btn-primary">Редактировать</button></th>
         <th><button class="btn btn-danger">Удалить</button></th>
       </tr>
       </thead>
 
       <tbody>
-      <tr v-for="client in clients.data || []" :key="client.id">
+
+      <tr v-for="client in searchedClients || []" :key="clients.data">
 
         <td>{{ client.name }}</td>
         <td>{{ client.brand }}</td>
@@ -53,17 +56,44 @@ import Pagination from '../components/Pagination.vue';
 export default {
   data() {
     return {
+      sortClientsState: false,
+      search: "",
       clients: {
         data: [],
         current_page: 1,
         last_page: 1,
       },
+
     };
   },
   components: {
     Pagination,
   },
+  computed: {
+    searchedClients() {
+      return this.clients.data.filter(c => {
+        return c.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
+      });
+    }
+  },
   methods: {
+    sortFields(field) {
+      this.sortClientsState = !this.sortClientsState;
+
+      const compareFunction = (a, b) => {
+        const valueA = a[field];
+        const valueB = b[field];
+
+        if (valueA === null) return 1;
+        if (valueB === null) return -1;
+
+        return this.sortClientsState
+            ? valueA.localeCompare(valueB)
+            : valueB.localeCompare(valueA);
+      };
+
+      this.clients.data.sort(compareFunction);
+    },
     async loadClients(page = 1) {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/clients?page=${page}`);

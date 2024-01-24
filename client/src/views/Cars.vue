@@ -8,10 +8,10 @@
     <table class="table">
       <thead>
       <tr>
-        <th scope="col">Марка</th>
-        <th scope="col">Модель</th>
-        <th scope="col">Цвет кузова</th>
-        <th scope="col">Гос номер РФ</th>
+        <th scope="col"><div @click="sortFields('brand')">Марка <i class="bi-sort-alpha-up"></i></div></th>
+        <th scope="col"><div @click="sortFields('model')">Модель <i class="bi-sort-alpha-up"></i></div></th>
+        <th scope="col"><div @click="sortFields('color')">Цвет кузова <i class="bi-sort-alpha-up"></i></div></th>
+        <th scope="col"><div @click="sortFields('plate')">Гос номер РФ <i class="bi-sort-alpha-up"></i></div></th>
       </tr>
       </thead>
       <tbody>
@@ -37,6 +37,23 @@ export default {
     };
   },
   methods: {
+    sortFields(field) {
+      this.sortCarsState = !this.sortCarsState;
+
+      const compareFunction = (a, b) => {
+        const valueA = a[field];
+        const valueB = b[field];
+
+        if (valueA === null) return 1;
+        if (valueB === null) return -1;
+
+        return this.sortCarsState
+            ? valueA.localeCompare(valueB)
+            : valueB.localeCompare(valueA);
+      };
+
+      this.cars.sort(compareFunction);
+    },
     async getCarsByClient() {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/cars`);
