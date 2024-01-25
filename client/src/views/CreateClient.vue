@@ -32,16 +32,15 @@
       <button type="submit" class="btn btn-success">Добавить</button>
     </form>
 
-    <div v-if="errors.length > 0" class="alert alert-danger">
-      <ul>
-        <li v-for="error in errors">{{ error }}</li>
-      </ul>
-    </div>
-    <p :style="{ color: 'green', display: showMessage ? 'block' : 'none' }">{{ message }}</p>
+  <ApiErrorMessage :errors="errors" :showMessage="showApiErrorMessage"/>
+  <ApiSuccessMessage :message="message" :showMessage="showApiSuccessMessage" />
 </template>
 
 <script>
-import axios from 'axios';
+import ApiService from "../services/ApiService";
+import ApiErrorMessage from "../components/ApiErrorMessage.vue";
+import ApiSuccessMessage from "../components/ApiSuccessMessage.vue";
+
 export default {
   data() {
     return {
@@ -52,31 +51,29 @@ export default {
         address: ""
       },
       message: '',
-      showMessage: false,
-      errors: []
+      showApiSuccessMessage: false,
+      showApiErrorMessage: false,
+      errors: [],
     };
   },
   methods: {
     async createClient() {
-
-      try {
-        const response = await axios.post('http://127.0.0.1:8000/api/clients/store', this.client);
-        this.message = response.data.message;
-        this.showMessage = true;
-        setTimeout(() => {
-          this.showMessage = false;
-        }, 5000);
-        } catch (error) {
-        if (error.response && error.response.data && error.response.data.errors) {
-          const fields = Object.keys(error.response.data.errors);
-          this.errors = fields.map(key => error.response.data.errors[key]) || ["Серверная ошибка"];
-        } else if (error.request) {
-          this.errors = ["Нет ответа от сервера"];
-        } else {
-          this.errors = [error.message];
-        }
+      const { success, data, error } = await ApiService.makeRequest(
+          `clients/store`,
+          "post",
+          this.client,
+          this
+      );
+      if (success) {
+        ApiService.handleSuccessMessage(data.message, this);
+      } else {
+        ApiService.handleErrorMessage(error, this);
       }
     }
-  }
+  },
+  components: {
+    ApiErrorMessage,
+    ApiSuccessMessage,
+  },
 };
 </script>

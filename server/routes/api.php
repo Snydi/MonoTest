@@ -23,19 +23,19 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware(['auth:sanctum'])->group(function ()
 {
-    Route::get('/clients', [ClientController::class, 'index']);
-    Route::post('/clients/store', [ClientController::class, 'store']);
-    Route::get('/clients/edit/{id}', [ClientController::class, 'edit']);
-    Route::post('/clients/update/{id}', [ClientController::class, 'update']);
-    Route::delete('/clients/delete/{id}', [ClientController::class, 'destroy']);
 
-    Route::get('/cars', [CarController::class, 'index']);
-    Route::get('/cars/get-by-client', [CarController::class, 'getByClient']);
-    Route::post('/cars/store/{client_id}', [CarController::class, 'store']);
-    Route::post('/cars/update/{id}', [CarController::class, 'update']);
-    Route::delete('/cars/delete/{id}', [CarController::class, 'destroy']);
 });
+Route::get('/clients', [ClientController::class, 'index']);
+Route::post('/clients/store', [ClientController::class, 'store']);
+Route::get('/clients/edit/{id}', [ClientController::class, 'edit']);
+Route::post('/clients/update/{id}', [ClientController::class, 'update']);
+Route::delete('/clients/delete/{id}', [ClientController::class, 'destroy']);
 
+Route::get('/cars', [CarController::class, 'index']);
+Route::get('/cars/get-by-client', [CarController::class, 'getByClient']);
+Route::post('/cars/store/{client_id}', [CarController::class, 'store']);
+Route::post('/cars/update/{id}', [CarController::class, 'update']);
+Route::delete('/cars/delete/{id}', [CarController::class, 'destroy']);
 
 
 

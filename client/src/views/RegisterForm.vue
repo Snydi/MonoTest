@@ -15,26 +15,21 @@
   </form>
 </template>
 
-<script>
-import AuthService from "../services/AuthService.js";
+<script>import axios from 'axios';
+
 export default {
   data() {
     return {
       email: null,
       password: null,
+      error: null,
     };
   },
   methods: {
-    registerUser() {
-      this.error = null;
-      const payload = {
-        email: this.email,
-        password: this.password,
-      };
-      AuthService.registerUser(payload)
-          .then(() => this.$router.push("/clients"));
+    async registerUser() {
+
     },
-  },
+  }
 }
 </script>
 

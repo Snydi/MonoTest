@@ -33,13 +33,8 @@
 
     </form>
 
-    <div v-if="errors.length > 0" class="alert alert-danger">
-      <ul>
-        <li v-for="error in errors">{{ error }}</li>
-      </ul>
-    </div>
-
-    <p :style="{ color: 'green', display: showMessage ? 'block' : 'none' }">{{ message }}</p>
+    <ApiErrorMessage :errors="errors" :showMessage="showApiErrorMessage"/>
+    <ApiSuccessMessage :message="message" :showMessage="showApiSuccessMessage" />
 
     <h1>Машины</h1>
 
@@ -54,10 +49,11 @@
 </template>
 
 <script>
-import axios from "axios";
-
 import EditCarForm from '../components/EditCarForm.vue';
 import CreateCarForm from "../components/CreateCarForm.vue";
+import ApiErrorMessage from "../components/ApiErrorMessage.vue";
+import ApiSuccessMessage from "../components/ApiSuccessMessage.vue";
+import ApiService from "../services/ApiService.js";
 export default {
   data() {
     return {
@@ -70,7 +66,8 @@ export default {
       cars: [],
 
       message: '',
-      showMessage: false,
+      showApiSuccessMessage: false,
+      showApiErrorMessage: false,
       errors: [],
     };
   },
@@ -86,42 +83,35 @@ export default {
         this.cars.splice(index, 1);
       }
     },
-    async updateClient()
-    {
-      try {
-        const response = await axios.post('http://127.0.0.1:8000/api/clients/update/${this.clientId}', this.client);
-
-        this.message = response.data.message;
-        this.showMessage = true;
-        setTimeout(() => {
-          this.showMessage = false;
-        }, 5000);
-
-      } catch (error) {
-
-        if (error.response) {
-          const fields = Object.keys(error.response.data.errors);
-          this.errors = fields.map(key => error.response.data.errors[key]) || ["Серверная ошибка"];
-
-        } else if (error.request) {
-          this.errors = ["Нет ответа от сервера"];
+    async updateClient() {
+        const { success, data, error } = await ApiService.makeRequest(
+            `clients/update/${this.clientId}`,
+            "post",
+            this.client,
+            this
+        );
+        if (success) {
+          ApiService.handleSuccessMessage(data.message, this);
         } else {
-          this.errors = [error.message];
+          ApiService.handleErrorMessage(error, this);
         }
-      }
     },
 
+
     async getClientAndCarsData() {
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/clients/edit/${this.clientId}`);
-        this.client = response.data.client[0];
-        this.cars = response.data.cars;
-      } catch (error) {
-        console.error('Error fetching clients with cars:', error);
-      }
+      const {data} = await ApiService.makeRequest(
+          `clients/edit/${this.clientId}`,
+          "get",
+          null,
+          this
+      );
+      this.client = data.client[0];
+      this.cars = data.cars;
     },
   },
   components: {
+    ApiErrorMessage,
+    ApiSuccessMessage,
     CreateCarForm,
     EditCarForm,
   },
