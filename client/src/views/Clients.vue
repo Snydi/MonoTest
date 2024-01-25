@@ -1,12 +1,14 @@
 <template>
   <div class="wrapper">
     <h1>Клиенты</h1>
+
     <router-link to="/cars">
       <button class="btn btn-success">На парковку</button>
     </router-link>
     <router-link to="/clients/create/">
       <button class="btn btn-success">Добавить</button>
     </router-link>
+    <logout></logout>
     <div class="input-group input-group-sm mb-3">
       <input type="text" v-model="search" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
     </div>
@@ -52,7 +54,7 @@
 <script>
 import axios from 'axios';
 import Pagination from '../components/Pagination.vue';
-
+import Logout from "../components/Logout.vue";
 export default {
   data() {
     return {
@@ -65,9 +67,6 @@ export default {
       },
 
     };
-  },
-  components: {
-    Pagination,
   },
   computed: {
     searchedClients() {
@@ -118,9 +117,13 @@ export default {
   mounted() {
     this.loadClients();
   },
+  components: {
+    Pagination,
+    Logout,
+  },
 };
 </script>
-<style>
+<style scoped>
 .wrapper
 {
   width: 600px;

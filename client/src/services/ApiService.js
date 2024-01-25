@@ -1,10 +1,16 @@
 import axios from "axios";
 
 const ApiService = {
-    baseURL: "http://127.0.0.1:8000/api",
+    init() {
+        axios.defaults.baseURL = 'http://127.0.0.1:8000/api';
+        const apiToken = localStorage.getItem('apiToken');
 
+        if (apiToken) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${apiToken}`;
+        }
+    },
     async makeRequest(route, method, data, component) {
-        const url = `${this.baseURL}/${route}`;
+        const url = `${axios.defaults.baseURL}/${route}`;
 
         try {
             const response = await axios({ url, method, data });
@@ -12,6 +18,20 @@ const ApiService = {
         } catch (error) {
             return { success: false, error };
         }
+    },
+
+    setAuthToken(token) {
+        if (token) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            localStorage.setItem('apiToken', token);
+        } else {
+            delete axios.defaults.headers.common['Authorization'];
+            localStorage.removeItem('apiToken');
+        }
+    },
+
+    isAuthenticated() {
+        return !!localStorage.getItem('apiToken');
     },
 
     handleSuccessMessage(message, component) {
