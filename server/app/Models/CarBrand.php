@@ -13,7 +13,7 @@ class CarBrand extends Model
     {
         return DB::table('car_brands')
             ->where('name', 'LIKE', '%'.$brand.'%')
-            ->select('*')
+            ->select('name')
             ->get();
     }
 }

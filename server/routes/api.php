@@ -35,7 +35,7 @@ Route::middleware(['auth:sanctum'])->group(function ()
     Route::post('/cars/update/{id}', [CarController::class, 'update']);
     Route::delete('/cars/delete/{id}', [CarController::class, 'destroy']);
 
-    Route::get('/cars/search/{brand}', [CarBrandController::class, 'searchBrands']);
+    Route::get('/car-brands/search/{brand}', [CarBrandController::class, 'searchBrands']);
 });
 
 

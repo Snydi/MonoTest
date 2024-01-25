@@ -9,17 +9,6 @@ const ApiService = {
             axios.defaults.headers.common['Authorization'] = `Bearer ${apiToken}`;
         }
     },
-    async makeRequest(route, method, data, component) {
-        const url = `${axios.defaults.baseURL}/${route}`;
-
-        try {
-            const response = await axios({ url, method, data });
-            return { success: true, data: response.data };
-        } catch (error) {
-            return { success: false, error };
-        }
-    },
-
     setAuthToken(token) {
         if (token) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -33,7 +22,16 @@ const ApiService = {
     isAuthenticated() {
         return !!localStorage.getItem('apiToken');
     },
+    async makeRequest(route, method, data, component) {
+        const url = `${axios.defaults.baseURL}/${route}`;
 
+        try {
+            const response = await axios({ url, method, data });
+            return { success: true, data: response.data };
+        } catch (error) {
+            return { success: false, error };
+        }
+    },
     handleSuccessMessage(message, component) {
         component.message = message;
         component.showApiSuccessMessage = true;
