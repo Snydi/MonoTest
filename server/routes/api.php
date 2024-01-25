@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ClientController;
 use App\Http\Controllers\API\CarController;
 use App\Http\Controllers\API\UserController;
-
+use App\Http\Controllers\API\CarBrandController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,6 +34,8 @@ Route::middleware(['auth:sanctum'])->group(function ()
     Route::post('/cars/store/{client_id}', [CarController::class, 'store']);
     Route::post('/cars/update/{id}', [CarController::class, 'update']);
     Route::delete('/cars/delete/{id}', [CarController::class, 'destroy']);
+
+    Route::get('/cars/search/{brand}', [CarBrandController::class, 'searchBrands']);
 });
 
 
