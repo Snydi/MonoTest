@@ -1,21 +1,29 @@
 <template>
-  <div>
-    <h1>Авторизация</h1>
-    <router-link to="/register">
-      <button class="btn btn-success">Зарегистрироваться</button>
-    </router-link>
-    <form @submit.prevent="loginUser">
-      <div class="form-group">
-        <label for="email">Email адрес</label>
-        <input v-model="user.email" required type="email" class="form-control" id="email" placeholder="Введите email">
+  <div class="w-25 container mt-4">
+
+      <div class="d-flex justify-content-between align-items-center" >
+
+          <h1 class="mb-0" >Авторизация</h1>
+
+          <router-link to="/register">
+              <button class="btn btn-success">Зарегистрироваться</button>
+          </router-link>
+
       </div>
 
-      <div class="form-group">
-        <label For="password">Пароль</label>
-        <input v-model="user.password" required type="password" class="form-control" id="password" placeholder="Введите пароль">
-      </div>
+    <form @submit.prevent="loginUser" >
+        <div class="form-group">
+            <label for="email">Email адрес</label>
+            <input v-model="user.email" required type="email" class="form-control" id="email" placeholder="Введите email">
+        </div>
 
-      <button type="submit" class="btn btn-primary">Войти</button>
+        <div class="form-group">
+            <label For="password">Пароль</label>
+            <input v-model="user.password" required type="password" class="form-control" id="password" placeholder="Введите пароль">
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4 ">Войти</button>
+
     </form>
 
     <ApiErrorMessage :errors="errors" :showMessage="showApiErrorMessage"/>
@@ -68,6 +76,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-</style>

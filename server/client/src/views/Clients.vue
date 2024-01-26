@@ -128,6 +128,6 @@ export default {
 {
   width: 600px;
   height: 1080px;
-  margin: 0;
+    margin: auto;
 }
 </style>

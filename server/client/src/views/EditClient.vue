@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="container w-25">
     <h1>Клиент</h1>
     <router-link to="/clients/">
       <button type="button" class="btn btn-success">Назад</button>
     </router-link>
 
-    <form @submit.prevent="updateClient">
+    <form @submit.prevent="updateClient" >
       <div class="form-group">
         <label for="name">ФИО</label>
         <input v-model="client.name" type="text" class="form-control" id="name" placeholder="ФИО:" required />
@@ -121,3 +121,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.form-inline {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form-group {
+    flex: 0 0 48%; /* Adjust this value as needed */
+}
+</style>
