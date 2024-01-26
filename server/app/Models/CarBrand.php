@@ -12,7 +12,7 @@ class CarBrand extends Model
     public static function getSearchedBrands($brand)
     {
         return DB::table('car_brands')
-            ->where('name', 'LIKE', '%'.$brand.'%')
+            ->where('name', 'LIKE', $brand.'%')
             ->select('name')
             ->get();
     }
