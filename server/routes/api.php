@@ -6,6 +6,8 @@ use App\Http\Controllers\API\ClientController;
 use App\Http\Controllers\API\CarController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\CarBrandController;
+use App\Http\Controllers\API\ApiRequestController;
+use App\Http\Middleware\LogApiRequests;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,11 +19,11 @@ use App\Http\Controllers\API\CarBrandController;
 |
 */
 
-
-Route::post('/register', [UserController::class, 'register']);
-Route::post('/login', [UserController::class, 'login']);
-
-Route::middleware(['auth:sanctum'])->group(function ()
+Route::middleware([ LogApiRequests::class])->group(function () {
+    Route::post('/register', [UserController::class, 'register']);
+    Route::post('/login', [UserController::class, 'login']);
+});
+Route::middleware(['auth:sanctum', LogApiRequests::class])->group(function ()
 {
     Route::get('/clients', [ClientController::class, 'index']);
     Route::post('/clients/store', [ClientController::class, 'store']);
@@ -36,6 +38,9 @@ Route::middleware(['auth:sanctum'])->group(function ()
     Route::delete('/cars/delete/{id}', [CarController::class, 'destroy']);
 
     Route::get('/car-brands/search/{brand}', [CarBrandController::class, 'searchBrands']);
+
+    Route::get('/requests/search/{route}', [ApiRequestController::class , 'search']);
+    Route::get('/requests/sort/{method}', [ApiRequestController::class , 'sort']);
 });
 
 
