@@ -15,6 +15,8 @@ class ApiRequest extends Model
         DB::table('api_requests')->insert([
             'route' => $route,
             'method' => $method,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
     }
     public static function searchRoute($request)
