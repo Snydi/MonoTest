@@ -27,6 +27,7 @@
 
 <script>
 import axios from "axios";
+import ApiService from "../services/ApiService";
 
 export default {
   data() {
@@ -55,14 +56,13 @@ export default {
       this.cars.sort(compareFunction);
     },
     async getCarsByClient() {
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/cars`);
-        this.cars = response.data.cars;
-        this.clients = response.data.clients;
-        console.log(response.data)
-      } catch (error) {
-        console.error('Error fetching cars:', error);
-      }
+        const {data} =  await ApiService.makeRequest(
+            `cars`,
+            "get",
+            null,
+        );
+        this.cars = data.cars;
+        this.clients = data.clients;
     },
   },
 

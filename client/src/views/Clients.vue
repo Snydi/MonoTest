@@ -55,6 +55,7 @@
 import axios from 'axios';
 import Pagination from '../components/Pagination.vue';
 import Logout from "../components/Logout.vue";
+import ApiService from "../services/ApiService";
 export default {
   data() {
     return {
@@ -94,23 +95,23 @@ export default {
       this.clients.data.sort(compareFunction);
     },
     async loadClients(page = 1) {
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/clients?page=${page}`);
-        this.clients = response.data;
-      } catch (error) {
-        console.error('Error fetching clients:', error);
-      }
+        const {data} =  await ApiService.makeRequest(
+            `clients?page=${page}`,
+            "get",
+            null,
+        );
+        this.clients = data;
     },
 
   async deleteClient(clientId) {
     if (confirm('Вы уверены, что хотите удалить клиента?')) {
-      try {
-        await axios.delete(`http://127.0.0.1:8000/api/clients/delete/${clientId}`);
-        this.clients.last_page = 9;
+        await ApiService.makeRequest(
+            `clients/delete/${clientId}`,
+            "delete",
+            null,
+            this
+        );
         await this.loadClients(this.clients.current_page);
-      } catch (error) {
-        console.error('Error deleting client:', error);
-      }
     }
   },
   },
