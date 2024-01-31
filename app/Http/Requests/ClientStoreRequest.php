@@ -23,9 +23,9 @@ class ClientStoreRequest extends FormRequest
     {
         return [
             'name' => 'min:3',
-            'sex' => 'required',
+            'sex' => 'required|alpha',
             'phone' => 'required|phone|unique:clients',
-            'address' => '',
+            'address' => 'required|alpha|min:3',
         ];
     }
 }

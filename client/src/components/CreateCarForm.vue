@@ -26,8 +26,8 @@
     </div>
 
     <div class="form-group">
-      <label for="color">Цвет</label>
-      <input v-model="car.color" type="text" class="form-control" id="color" placeholder="Цвет:" required />
+      <label for="color">Цвет кузова</label>
+      <input v-model="car.color" type="text" class="form-control" id="color" placeholder="Цвет кузова:" required />
     </div>
 
     <div class="form-group">
@@ -100,17 +100,23 @@ export default {
     },
 
     async createCar() {
-      const { success, data, error } = await ApiService.makeRequest(
-          `cars/store/${this.clientId}`,
-          "post",
-          this.car,
-          this
-      );
-      if (success) {
-        ApiService.handleSuccessMessage(data.message, this);
-      } else {
-        ApiService.handleErrorMessage(error, this);
-      }
+        if(this.clientId === '')
+        {
+            ApiService.handleErrorMessage({ customMessage: "Сначала создайте клиента" }, this);
+        }
+        else {
+            const {success, data, error} = await ApiService.makeRequest(
+                `cars/store/${this.clientId}`,
+                "post",
+                this.car,
+                this
+            );
+            if (success) {
+                ApiService.handleSuccessMessage(data.message, this);
+            } else {
+                ApiService.handleErrorMessage(error, this);
+            }
+        }
     }
   },
 

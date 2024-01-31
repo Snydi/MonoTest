@@ -33,7 +33,7 @@ class Client extends Model
     }
     public static function createClient($request)
     {
-        DB::table('clients')->insert([
+        return DB::table('clients')->insertGetId([
             'name' => $request->name,
             'sex' => $request->sex,
             'phone' => $request->phone,

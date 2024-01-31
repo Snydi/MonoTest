@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CarUpdateRequest extends FormRequest
 {
@@ -27,9 +28,12 @@ class CarUpdateRequest extends FormRequest
         return [
             'brand' => 'alpha|required',
             'model' => 'required',
-            'color' => 'required',
-            'plate' => ['required', 'unique:cars,plate,'.$id ,
-                'regex:/^[АВЕКМНОРСТУХ]\d{3}(?<!000)[АВЕКМНОРСТУХ]{2}\d{2,3}$/ui'],
+            'color' => 'alpha|required',
+            'plate' => [
+                'required',
+                Rule::unique('cars', 'plate')->ignore($id),
+                'regex:/^[АВЕКМНОРСТУХ]\d{3}(?<!000)[АВЕКМНОРСТУХ]{2}\d{2,3}$/ui'
+            ],
             'in_parking' => '',
         ];
     }

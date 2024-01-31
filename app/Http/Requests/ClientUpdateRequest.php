@@ -24,10 +24,10 @@ class ClientUpdateRequest extends FormRequest
     {
         $id = $this->route('id');
         return [
-            'name' => 'min:3',
-            'sex' => 'required',
+            'name' => 'required|alpha|min:3',
+            'sex' => 'required|alpha',
             'phone' => 'required|phone|unique:clients,phone,'.$id, //использовал библиотеку
-            'address' => '',
+            'address' => 'required|alpha|min:3',
         ];
     }
 }

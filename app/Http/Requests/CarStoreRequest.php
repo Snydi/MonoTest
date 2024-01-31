@@ -24,7 +24,7 @@ class CarStoreRequest extends FormRequest
         return [
             'brand' => 'alpha|required',
             'model' => 'required',
-            'color' => 'required',
+            'color' => 'alpha|required',
             'plate' => 'required|unique:cars|regex:/^[АВЕКМНОРСТУХ]\d{3}(?<!000)[АВЕКМНОРСТУХ]{2}\d{2,3}$/ui',
             'in_parking' => '',
         ];

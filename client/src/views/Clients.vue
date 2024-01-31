@@ -18,8 +18,8 @@
         <th scope="col"><div @click="sortFields('name')">Клиент <i class="bi-sort-alpha-up"></i></div></th>
         <th scope="col"><div @click="sortFields('brand')">Марка машины <i class="bi-sort-alpha-up"></i></div></th>
         <th scope="col"><div @click="sortFields('plate')">Номер машины <i class="bi-sort-alpha-up"></i></div></th>
-        <th><button class="btn btn-primary">Редактировать</button></th>
-        <th><button class="btn btn-danger">Удалить</button></th>
+        <th></th>
+        <th></th>
       </tr>
       </thead>
 
@@ -28,8 +28,8 @@
       <tr v-for="client in searchedClients || []" :key="clients.data">
 
         <td>{{ client.name }}</td>
-        <td>{{ client.brand }}</td>
-        <td>{{ client.plate }}</td>
+        <td>{{ client.brand || 'Отсутствует'}}</td>
+        <td>{{ client.plate || 'Отсутствует'}}</td>
 
         <td>
           <router-link :to="{ name: 'editClient', params: { id: client.id } }">
@@ -125,10 +125,5 @@ export default {
 };
 </script>
 <style scoped>
-.wrapper
-{
-  width: 600px;
-  height: 1080px;
-    margin: auto;
-}
+
 </style>

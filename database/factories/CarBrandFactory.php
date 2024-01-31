@@ -16,8 +16,13 @@ class CarBrandFactory extends Factory
      */
     public function definition(): array
     {
+        $carBrands = [
+            'Toyota', 'Honda', 'Ford', 'Chevrolet', 'Nissan',
+            'BMW',  'Audi', 'Volkswagen', 'Tesla'
+        ];
+
         return [
-            'name' => fake()->unique()->word(),
+            'name' => fake()->unique()->randomElement($carBrands),
         ];
     }
 }

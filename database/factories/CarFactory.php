@@ -18,10 +18,66 @@ class CarFactory extends Factory
      */
     public function definition(): array
     {
+        $carBrands = CarBrand::pluck('name')->toArray();
+
+        $carBrandModels = [];
+
+        foreach ($carBrands as $brand) {
+            switch ($brand) {
+                case 'Toyota':
+                    $carBrandModels[$brand] = ['Corolla', 'Camry', 'Rav4'];
+                    break;
+
+                case 'Honda':
+                    $carBrandModels[$brand] = ['Civic', 'Accord', 'CR-V'];
+                    break;
+
+                case 'Ford':
+                    $carBrandModels[$brand] = ['Fusion', 'Escape', 'Explorer'];
+                    break;
+
+                case 'Chevrolet':
+                    $carBrandModels[$brand] = ['Malibu', 'Equinox', 'Tahoe'];
+                    break;
+
+                case 'Nissan':
+                    $carBrandModels[$brand] = ['Altima', 'Rogue', 'Pathfinder'];
+                    break;
+
+                case 'BMW':
+                    $carBrandModels[$brand] = ['3 Series', 'X5', '7 Series'];
+                    break;
+
+                case 'Mercedes-Benz':
+                    $carBrandModels[$brand] = ['C-Class', 'E-Class', 'GLC'];
+                    break;
+
+                case 'Audi':
+                    $carBrandModels[$brand] = ['A4', 'Q5', 'A6'];
+                    break;
+
+                case 'Volkswagen':
+                    $carBrandModels[$brand] = ['Jetta', 'Tiguan', 'Passat'];
+                    break;
+
+                case 'Tesla':
+                    $carBrandModels[$brand] = ['Model 3', 'Model S', 'Model X'];
+                    break;
+            }
+        }
+
+        $selectedBrand = $this->faker->randomElement($carBrands);
+        $selectedModel = $this->faker->randomElement($carBrandModels[$selectedBrand]);
+
+        $carColors = [
+            'Красный', 'Синий', 'Зеленый', 'Желтый', 'Черный',
+            'Белый', 'Серебрянный', 'Серый', 'Оранжевый', 'Фиолетовый'
+        ];
+
         return [
-            'brand' => CarBrand::pluck('id')->random(),
-            'model' => fake()->word(),
-            'color' => fake()->word(),
+            'brand' => $selectedBrand,
+            'model' => $selectedModel,
+            'color' => $this->faker->randomElement($carColors),
             'plate' => $this->generateRandomPlate(),
             'in_parking' => fake()->boolean(),
             'client_id' => Client::pluck('id')->random(),

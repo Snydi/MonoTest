@@ -2,7 +2,7 @@ import axios from "axios";
 
 const ApiService = {
     init() {
-        axios.defaults.baseURL = 'http://127.0.0.1:8000/api';
+        axios.defaults.baseURL = import.meta.env.VITE_BASE_URL ;
         const apiToken = localStorage.getItem('apiToken');
 
         if (apiToken) {
@@ -43,8 +43,11 @@ const ApiService = {
     handleErrorMessage(error, component) {
         if (error.response) {
             const fields = Object.keys(error.response.data.errors);
-            component.errors = fields.map((key) => error.response.data.errors[key]);
-        } else {
+            component.errors = fields.map((key) => error.response.data.errors[key][0]);
+        } else if (error.customMessage) {
+            component.errors = [error.customMessage];
+        }
+        else {
             component.errors = ["Сетевая ошибка"];
         }
 

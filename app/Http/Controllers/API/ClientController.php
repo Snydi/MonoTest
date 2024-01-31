@@ -18,8 +18,8 @@ class ClientController extends Controller
     }
     public function store(ClientStoreRequest $request)
     {
-         Client::createClient($request);
-         return response()->json(['message' => 'Клиент успешно добавлен']);
+         $clientId = Client::createClient($request);
+         return response()->json(['message' => 'Клиент успешно добавлен', 'clientId' => $clientId]);
     }
     public function edit($id)
     {

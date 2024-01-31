@@ -3,7 +3,7 @@
 namespace Database\Factories;
 use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use Propaganistas\LaravelPhone\PhoneNumber;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Client>
  */
@@ -16,11 +16,13 @@ class ClientFactory extends Factory
      */
     public function definition(): array
     {
+
         $sexValues = ['male', 'female', 'N/A'];
         return [
             'name' => fake()->name(),
             'sex' => Arr::random($sexValues),
-            'phone' => fake()->unique()->phoneNumber(),
+            'phone' => '+7 (' . fake()->numerify('###') . ') ' .
+                fake()->numerify('###') . '-' . fake()->numerify('##'). '-' . fake()->numerify('##'),
             'address' => fake()->streetName(),
         ];
     }

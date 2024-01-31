@@ -14,6 +14,7 @@ use App\Http\Controllers\CarController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/', [ClientController::class, 'index']);
 
 Route::get('/clients', [ClientController::class, 'index']);
 Route::get('/clients/create', [ClientController::class, 'create']);

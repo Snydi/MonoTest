@@ -74,7 +74,6 @@ export default {
 
   methods: {
     addNewCar() {
-      console.log('test');
       this.getClientAndCarsData();
     },
     removeDeletedCar(deletedCarId) {
