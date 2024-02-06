@@ -28,8 +28,8 @@
       <tr v-for="client in searchedClients || []" :key="clients.data">
 
         <td>{{ client.name }}</td>
-        <td>{{ client.brand || 'Отсутствует'}}</td>
-        <td>{{ client.plate || 'Отсутствует'}}</td>
+        <td>{{ client.cars.model ?? 'Отсутствует'}}</td>
+        <td>{{ client.cars.plate || 'Отсутствует'}}</td>
 
         <td>
           <router-link :to="{ name: 'editClient', params: { id: client.id } }">

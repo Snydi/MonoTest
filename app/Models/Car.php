@@ -26,33 +26,8 @@ class Car extends Model
             ->select('*')
             ->get();
     }
-    public static function createCar($request, $client_id)
+    public function user()
     {
-        DB::table('cars')->insert([
-            'brand' => $request->brand,
-            'model' => $request->model,
-            'color' => $request->color,
-            'plate' => $request->plate,
-            'in_parking' => $request->in_parking,
-            'client_id' => $client_id,
-        ]);
-    }
-    public static function updateCar($request, $id)
-    {
-        DB::table('cars')
-            ->where('id', $id)
-            ->update([
-                'brand' => $request->brand,
-                'model' => $request->model,
-                'color' => $request->color,
-                'plate' => $request->plate,
-                'in_parking' => $request->in_parking,
-            ]);
-    }
-    public static function deleteCar($id)
-    {
-        DB::table('cars')
-            ->where('id', $id)
-            ->delete();
+        return $this->belongsTo(User::class);
     }
 }

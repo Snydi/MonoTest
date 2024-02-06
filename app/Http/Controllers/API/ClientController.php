@@ -3,6 +3,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CarUpdateRequest;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Car;
@@ -14,12 +15,17 @@ class ClientController extends Controller
 {
     public function index()
     {
-        return Client::getClientsWithCars();
+        return Client::with('cars')->paginate(10);
     }
     public function store(ClientStoreRequest $request)
     {
-         $clientId = Client::createClient($request);
-         return response()->json(['message' => 'Клиент успешно добавлен', 'clientId' => $clientId]);
+        $client = Client::create([
+            'name' => $request->name,
+            'sex' => $request->sex,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            ]);
+        return response()->json(['message' => 'Клиент успешно добавлен', 'clientId' => $client->id]);
     }
     public function edit($id)
     {
@@ -29,12 +35,18 @@ class ClientController extends Controller
     }
     public function update(ClientUpdateRequest $request, $id)
     {
-        Client::updateClient($request, $id);
+        $client = Client::find($id);
+        $client->name = $request->name;
+        $client->sex = $request->sex;
+        $client->phone = $request->phone;
+        $client->address = $request->address;
         return response()->json(['message' => 'Клиент успешно отредактирован']);
     }
     public function destroy($id)
     {
-       Client::deleteClient($id);
+        $client = Client::find($id);
+        $client->delete();
+        return response()->json(['message' => 'Клиент успешно удален']);
     }
 }
 

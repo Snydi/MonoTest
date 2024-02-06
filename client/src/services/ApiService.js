@@ -2,6 +2,7 @@ import axios from "axios";
 
 const ApiService = {
     init() {
+        axios.defaults.baseURL = '';
         axios.defaults.baseURL = import.meta.env.VITE_BASE_URL ;
         const apiToken = localStorage.getItem('apiToken');
 
