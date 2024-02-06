@@ -104,7 +104,7 @@ export default {
           null,
           this
       );
-      this.client = data.client[0];
+      this.client = data.client;
       this.cars = data.cars;
     },
   },

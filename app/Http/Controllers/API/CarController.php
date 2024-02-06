@@ -20,15 +20,8 @@ class CarController extends Controller
 
     public function store(CarStoreRequest $request, $client_id )
     {
-        Car::create([
-            'brand' => $request->brand,
-            'model' => $request->model,
-            'color' => $request->color,
-            'plate' => $request->plate,
-            'in_parking' => $request->in_parking,
-            'client_id' => $client_id,
-        ]);
-       return response()->json(['message' => 'Машина успешно добавлена']);
+
+        return response()->json(['message' => 'Машина успешно добавлена']);
     }
     public function update(CarUpdateRequest $request, $id)
     {

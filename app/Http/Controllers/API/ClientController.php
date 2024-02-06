@@ -3,6 +3,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CarUpdateRequest;
 
+use App\Repositories\ClientRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,39 +14,32 @@ use App\Http\Requests\ClientUpdateRequest;
 
 class ClientController extends Controller
 {
+    private $clientRepository;
+    public function __construct(ClientRepository $clientRepository)
+    {
+        $this->clientRepository = $clientRepository;
+    }
     public function index()
     {
-        return Client::with('cars')->paginate(10);
+        return $this->clientRepository->getClientsWithCars();
     }
     public function store(ClientStoreRequest $request)
     {
-        $client = Client::create([
-            'name' => $request->name,
-            'sex' => $request->sex,
-            'phone' => $request->phone,
-            'address' => $request->address,
-            ]);
+        $client = $this->clientRepository->store($request);
         return response()->json(['message' => 'Клиент успешно добавлен', 'clientId' => $client->id]);
     }
     public function edit($id)
     {
-        $data ["client"] = Client::getClientById($id);
-        $data ["cars"] = Car::getCarsByClientId($id);
-        return $data;
+       return $this->clientRepository->edit($id);
     }
     public function update(ClientUpdateRequest $request, $id)
     {
-        $client = Client::find($id);
-        $client->name = $request->name;
-        $client->sex = $request->sex;
-        $client->phone = $request->phone;
-        $client->address = $request->address;
+        $this->clientRepository->update($request, $id);
         return response()->json(['message' => 'Клиент успешно отредактирован']);
     }
     public function destroy($id)
     {
-        $client = Client::find($id);
-        $client->delete();
+        $this->clientRepository->destroy($id);
         return response()->json(['message' => 'Клиент успешно удален']);
     }
 }
