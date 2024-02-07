@@ -4,9 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
-use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -17,7 +17,14 @@ class UserController extends Controller
     }
     public function login(UserLoginRequest $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $credentials = ['email' => $request->email, 'password' => $request->password];
+        if(!Auth::attempt($credentials)){
+            return response()->json([
+                'status' => false,
+                'errors' => ['password' => ['Неправильный логин или пароль']],
+            ], 401);
+        }
+        $user = Auth::user();
         return response()->json([
             'message' => 'Авторизация успешна',
             'token' => substr($user->createToken("API TOKEN")->plainTextToken,2)

@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository
 {
@@ -9,7 +10,7 @@ class UserRepository
     {
         User::create([
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
         ]);
     }
 }
