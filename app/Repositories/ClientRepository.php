@@ -5,13 +5,13 @@ use Illuminate\Support\Facades\DB;
 
 class ClientRepository
 {
-    public function getClientsWithCars()
+    public static function getClientsWithCars()
     {
         return DB::table('clients')
             ->leftJoin('cars', 'clients.id', '=', 'cars.client_id')
             ->select('clients.id', 'clients.name', 'cars.brand', 'cars.plate')->paginate(10);
     }
-    public function store($request)
+    public static function store($request)
     {
         return Client::create([
             'name' => $request->name,
@@ -20,14 +20,14 @@ class ClientRepository
             'address' => $request->address,
         ]);
     }
-    public function edit($id)
+    public static function edit($id)
     {
         $client = Client::find($id);
         $data ["client"] = $client;
         $data ["cars"] = $client->cars;
         return $data;
     }
-    public function update($request, $id)
+    public static function update($request, $id)
     {
         $client = Client::find($id);
         $client->name = $request->name;
@@ -36,7 +36,7 @@ class ClientRepository
         $client->address = $request->address;
         $client->save();
     }
-    public function destroy($id)
+    public static function destroy($id)
     {
         $client = Client::find($id);
         $client->delete();

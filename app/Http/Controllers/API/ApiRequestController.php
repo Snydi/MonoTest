@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\ApiRequest;
+use App\Repositories\ApiRequestRepository;
 use Illuminate\Http\Request;
 
 class ApiRequestController extends Controller
 {
     public function search(Request $request)
     {
-       return ApiRequest::searchRoute($request);
+       return ApiRequestRepository::searchRoute($request);
     }
     public function sort(Request $request)
     {
-       return ApiRequest::sortByMethod($request);
+       return ApiRequestRepository::sortByMethod($request);
     }
 }
